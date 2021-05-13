@@ -6,17 +6,21 @@ Master Investigation Reports
 
 Para usar esta tool,debes instalar:
 
+**sublist3r** (comando abajo) (OMITIR SI YA ESTA INSTALADO)
+
+#git clone https://github.com/aboul3la/Sublist3r.git
+
+**favihash** (comando abajo) (OMITIR SI YA ESTA INSTALADO)
+
+#pip install mmh3
+
+#git clone https://github.com/themast3rs/favihash
+
 **aquatone** (comando abajo) (OMITIR SI YA ESTA INSTALADO)
 
 #git clone https://github.com/michenriksen/aquatone.git
 
 #gem install aquatone
-
-**favihash** (comando abajo) (OMITIR SI YA ESTA INSTALADO)
-
-#sudo pip install mmh3
-
-#git clone https://github.com/themast3rs/favihash
 
 Luego ejecutar la herramienta (comando abajo)
 
