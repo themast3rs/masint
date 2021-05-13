@@ -24,11 +24,13 @@ def masint():
 		print(os.system('nslookup ' +domain))
 		print("------------------------------------------WHOIS-------------------------------------------")
 		print(os.system('whois ' +domain))
+		print("----------------------------------------SUBLIST3R-----------------------------------------")
+		print(os.system('python3 $(find ~ -name sublist3r.py) -d ' +domain))
+		print("----------------------------------------FAVIHASH------------------------------------------")
+		print(os.system('python3 $(find ~ -name favihash.py) -u https://www.' +domain))
 		print("----------------------------------------AQUATONE------------------------------------------")
 		print(os.system('aquatone-discover --domain ' +domain))
-		print("----------------------------------------FAVIHASH------------------------------------------")
-		print(os.system('python3 /home/kali/Documents/Tools/favihash/favihash.py -u https://www.' +domain))
 try:
 	masint()
 except:
-	print("ERROR: La DOMINIO no disponible, por favor intente nuevamente")
+	print("ERROR: DOMINIO no disponible, por favor intente nuevamente")
