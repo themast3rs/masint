@@ -1,5 +1,5 @@
 #Funcionamiento
-import os,argparse,subprocess,shlex,sys
+import os,argparse,subprocess
 Banner="""
  █████║ ██████║██████║██████║███   ██║██████║
 ██╔█═██║██╔═██║███║     ██║  ████  ██║  ██║  
@@ -21,13 +21,17 @@ def masint():
 		print("ERROR: Dominio no disponible,\nFavor ingresar la opcion -d [dominio] e intente nuevamente")
 	else:	
 		print("----------------------------------------NSLOOKUP------------------------------------------")
-		print(os.system('nslookup ' +domain))
+		command0 = "nslookup "+ domain +" | awk '/^Name:/ {c=2;N=$2} !--c {print N,$2}'|column -s ' ' -t -N DOMINIO:,IP: -o '||'"
+		p0 = subprocess.Popen(command0, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+		a, b = p0.communicate()
+		a.split(b"\n")
+		print(a.decode("utf-8"))
 		print("------------------------------------------WHOIS-------------------------------------------")
-		command = "whois -H "+ domain +" | egrep -v "+"'PRIVACY|above|Please|Whois|update|unsigned|:$'"
-		p1 = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-		s, e = p1.communicate()
-		s = s.split(b"\n")		
-		for x in s:
+		command1 = "whois -H "+ domain +" | egrep -v "+"'PRIVACY|above|Please|Whois|update|unsigned|:$'| sed 's/: /;/g' | column -s ';' -t -N PARAMETRO:,RESULTADO: -o '||'"
+		p1 = subprocess.Popen(command1, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+		c, d = p1.communicate()
+		c = c.split(b"\n")
+		for x in c:
 			if x!=b'':
 				print(x.decode("utf-8"))					
 		print("----------------------------------------SUBLIST3R-----------------------------------------")
@@ -39,4 +43,5 @@ def masint():
 try:
 	masint()
 except:
-	print("ERROR: Dominio no disponible,\nFavor ingresar la opcion -d [dominio] e intente nuevamente")
+	print(x)
+	#print("ERROR: Dominio no disponible,\nFavor ingresar la opcion -d [dominio] e intente nuevamente")
