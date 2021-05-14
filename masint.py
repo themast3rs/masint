@@ -1,5 +1,5 @@
 #Funcionamiento
-import os,argparse
+import os,argparse,subprocess,shlex,sys
 Banner="""
  █████║ ██████║██████║██████║███   ██║██████║
 ██╔█═██║██╔═██║███║     ██║  ████  ██║  ██║  
@@ -23,7 +23,13 @@ def masint():
 		print("----------------------------------------NSLOOKUP------------------------------------------")
 		print(os.system('nslookup ' +domain))
 		print("------------------------------------------WHOIS-------------------------------------------")
-		print(os.system('whois ' +domain))
+		command = "whois -H "+ domain +" | egrep -v "+"'PRIVACY|above|Please|Whois|update|unsigned|:$'"
+		p1 = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+		s, e = p1.communicate()
+		s = s.split(b"\n")		
+		for x in s:
+			if x!=b'':
+				print(x.decode("utf-8"))					
 		print("----------------------------------------SUBLIST3R-----------------------------------------")
 		print(os.system('python3 $(find ~ -name sublist3r.py) -d ' +domain))
 		print("----------------------------------------FAVIHASH------------------------------------------")
@@ -33,4 +39,4 @@ def masint():
 try:
 	masint()
 except:
-	print("ERROR: DOMINIO no disponible, por favor intente nuevamente")
+	print("ERROR: Dominio no disponible,\nFavor ingresar la opcion -d [dominio] e intente nuevamente")
